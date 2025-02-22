@@ -6,6 +6,7 @@ import { AuthContext } from "../../state/AuthContext";
 export default function Login() {
   const email = useRef();
   const password = useRef();
+  //useContextでAuthContextの値を取得
   const { user, isFetching, error, dispatch} = useContext(AuthContext);
   //formタグのonSubmitが使える
   const handleSubmit = (e) => {
@@ -18,6 +19,7 @@ export default function Login() {
       }, dispatch
     );
   };
+  // console.log(user);
 
   return (
     <>
@@ -42,7 +44,7 @@ export default function Login() {
                 className="loginInput"
                 placeholder="パスワード"
                 required
-                minLength={"6"}
+                minLength={"5"}
                 ref={password}
               />
               <button className="loginButton">ログイン</button>
