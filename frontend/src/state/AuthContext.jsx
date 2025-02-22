@@ -5,28 +5,24 @@ const initialState = {
   user: null,
   isFetching: false,
   error: false,
-  
 };
 
-//ユーザー状態をグローバルに管理する AuthReducer
-
+//ユーザー状態をグローバルに管理するContextを作成する 
 export const AuthContext = createContext(initialState);
 
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState);
+  //AuthContext = createContext(initialState);と<AuthContext.Providerは一致していないとエラーが発生する
   return (
-  
-      <AuthContextProvider
-        value={{
-          user: state.user,
-          isFetching: state.isFetching,
-          error: state.error,
-          dispatch,
-        }}
-      >
-        {children}
-      </AuthContextProvider>
-    
+    <AuthContext.Provider
+      value={{
+        user: state.user,
+        isFetching: state.isFetching,
+        error: state.error,
+        dispatch,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 };
-
