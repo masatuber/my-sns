@@ -18,7 +18,7 @@ export default function Profile() {
       //クエリで参照するので、?username=${username}usernameはuseParamsより参照
       const response = await axios.get(`/api/users?username=${username}`);
       setUser(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     };
     fetchUser();
   }, [username]);
@@ -31,13 +31,13 @@ export default function Profile() {
           <div className="profileRightTop">
             <div className="profileCover">
               <img
-                src={user.coverPicture || PUBLIC_FOLDER + "/post/3.jpeg"}
+                src={PUBLIC_FOLDER + user.coverPicture || PUBLIC_FOLDER + "/post/3.jpeg"}
                 alt=""
                 className="profileCoverImg"
               />
               <img
                 src={
-                  user.profilePicture || PUBLIC_FOLDER + "/person/noAvatar.png"
+                  PUBLIC_FOLDER + user.profilePicture || PUBLIC_FOLDER + "/person/noAvatar.png"
                 }
                 alt=""
                 className="profileUserImg"

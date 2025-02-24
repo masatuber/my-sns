@@ -1,15 +1,16 @@
 import "./Post.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MoreVert } from "@mui/icons-material";
 import axios from "axios";
 import {format} from "timeago.js";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../state/AuthContext";
 // import { Users } from "../../dummyData";
 // import PropTypes from "prop-types";eslintはoff
 //timelineのpostをプロップスでPost.jsxにプロップスを介して受け取った{ post }をpost.useridにエンドポイントを付与する
 export default function Post({ post }) {
   const PUBLIC_FOLDER = import.meta.env.VITE_REACT_APP_PUBLIC_FOLDER;
-
+  const { user: loginUser } = useContext(AuthContext);
   // const user = Users.filter((user) => user.id === 1);
   // console.log(user[0].username);
   const [like, setLike] = useState(post.likes.length); //いいね状態はダミーデータより開始
@@ -20,13 +21,20 @@ export default function Post({ post }) {
     const fetchUser = async () => {
       const response = await axios.get(`/api/users?userid=${post.userid}`);
       setUser(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     };
     fetchUser();
   }, [post.userid]);
 
   //いいねボタンがtriggerされる関数定義
-  const handleLike = () => {
+  const handleLike = async () => {
+    try {
+      //イイねのAPIを呼出す  /:id/like
+      await axios.put(`/api/posts/${post._id}/like`, { userid: loginUser._id });
+    } catch (err) {
+      console.log(err);
+    }
+
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   };
@@ -41,8 +49,9 @@ export default function Post({ post }) {
               <Link to={`/profile/${user.username}`}>
                 <img
                   src={
-                    user.profilePicture ||
-                    PUBLIC_FOLDER + "/person/noAvatar.png"
+                    user.profilePicture 
+                    ? PUBLIC_FOLDER + user.profilePicture 
+                    : PUBLIC_FOLDER + "/person/noAvatar.png"
                   }
                   alt=""
                   className="postProfileImg"
