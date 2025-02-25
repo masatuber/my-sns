@@ -3,8 +3,11 @@ import "./Sidebar.css";
 import { Users } from "../../dummyData";
 import { Bookmark, Home, MessageRounded, Notifications, Person, Search, Settings } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../state/AuthContext";
 
 export default function Sidebar() {
+  const { user } = useContext(AuthContext);
   return (
     <>
       <div className="sidebar">
@@ -38,7 +41,7 @@ export default function Sidebar() {
             <li className="sidebarListItem">
               <Person className="sidebarIcon" />
               <Link
-                to="/profile/masaki"
+                to={`/profile/${user.username}`}
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <span className="sidebarListItemText">プロフィール</span>
@@ -60,4 +63,6 @@ export default function Sidebar() {
     </>
   );
 }
+
+// /profile/masaki"
 

@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import "./Register.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 export default function Register() {
   const username = useRef();
   const email = useRef();
@@ -26,7 +27,7 @@ export default function Register() {
           password: password.current.value,
         };
         //auth/registerのAPIを呼出す /api/auth/register
-        await axios.post("/api/auth/register", user);
+        await axios.post("api/auth/register", user);
         navigate("/login");
       } catch (err) {
         alert(err);
@@ -35,6 +36,7 @@ export default function Register() {
   };
   //↑までがhandleSubmit関数のスコープ
 
+
   return (
     <>
       <div className="login">
@@ -42,6 +44,11 @@ export default function Register() {
           <div className="loginLeft">
             <h3 className="loginLogo">Real SNS</h3>
             <span className="loginDesc">新しいSNS</span>
+            <Link to="/login">
+              <button>
+                アカウントがある場合はこちら
+              </button>
+            </Link>
           </div>
           <div className="loginRight">
             <form className="loginBox" onSubmit={(e) => handleSubmit(e)}>

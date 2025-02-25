@@ -9,12 +9,12 @@ const HomeRightbar = ( ) => {
   return (
     <>
       <div className="eventContainer">
-        <img src="/star.png" alt="" className="starImg" />
+        <img src={PUBLIC_FOLDER + "/star.png"} alt="" className="starImg" />
         <span className="eventText">
           <b>フォローワー限定</b>イベント開催中!
         </span>
       </div>
-      <img src="/event.jpeg" alt="" className="eventImg" />
+      <img src={PUBLIC_FOLDER + "/event.jpeg"} alt="" className="eventImg" />
       <h4 className="rightbarTitle">オンラインの友達</h4>
       <ul className="rightbarFriendList">
         {Users.map((user) => (
@@ -23,19 +23,19 @@ const HomeRightbar = ( ) => {
       </ul>
       <p className="promotionTitle">プロモーション広告</p>
       <img
-        src="/promotion/promotion1.jpeg"
+        src={PUBLIC_FOLDER + "/promotion/promotion1.jpeg"}
         alt=""
         className="rightbarPromotionImg"
       />
       <p className="promotionName">ショッピング</p>
       <img
-        src="/promotion/promotion2.jpeg"
+        src={PUBLIC_FOLDER + "/promotion/promotion2.jpeg"}
         alt=""
         className="rightbarPromotionImg"
       />
       <p className="promotionName">カーショップ</p>
       <img
-        src="/promotion/promotion3.jpeg"
+        src={PUBLIC_FOLDER + "/promotion/promotion3.jpeg"}
         alt=""
         className="rightbarPromotionImg"
       />

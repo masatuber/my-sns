@@ -7,10 +7,10 @@ const postRoute = require("./routes/posts");
 const uploadRoute = require("./routes/upload");
 const PORT = 3000;
 const mongoose = require("mongoose");
+const path = require("path");
 require("dotenv").config( );
 const cors = require('cors');
 app.use(cors());
-
 //データベース接続にenvファイルにDBURL格納しgit管理下にしない
 mongoose
     .connect(process.env.MONGOURL)
@@ -22,14 +22,14 @@ mongoose
     } );
 
 //ミドルウェアにエンドポイントルーティング設定記述する。express.json()はJSON形式を指定
+// /：3000/imagesを見に行ったら現在のディレクトリに＋public/imagesを参照する記述
+app.use("/images", express.static(path.join(__dirname, "public/images")));
+//APIパスでVite環境は/api/を必ず付ける
 app.use(express.json());
-
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
+//画像アップロード用のAPIエンドポイント
 app.use("/api/upload", uploadRoute);
-// app.get( "/", (req, res) => {
-//     res.send("hello express");
-// });
 
 app.listen( PORT, () => console.log("サーバーが起動しました。"));

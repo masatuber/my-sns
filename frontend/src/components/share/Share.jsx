@@ -19,9 +19,28 @@ export default function Share() {
       userid: user._id,
       desc: desc.current.value,
     };
+console.log(user._id);
+    if(file) {
+      const data = new FormData(); //キーとvalueを作成
+      const fileName = Date.now() + file.name; //現在時刻を使って重複を回避
+      data.append("name", fileName);
+      data.append("file", file);
+      newPost.img = fileName;
+
+      try {
+        //画像アップロード用のAPI呼ぶ
+        await axios.post("api/upload", data);
+      } catch (err) {
+
+        console.log(err);
+
+      }
+
+    } 
 
     try {
-      await axios.post("/api/posts", newPost);
+      
+      await axios.post("api/posts", newPost);
       window.location.reload();
     } catch(err) {
       console.log(err);

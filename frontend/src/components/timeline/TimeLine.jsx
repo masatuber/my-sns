@@ -12,18 +12,32 @@ export default function TimeLine({ username }) {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      try {
-        const res = username
-          ? await axios.get(`/api/posts/profile/${username}`) //プロフィールの場合のAPI
-          : await axios.get(`/api/posts/timeline/${user._id}`); //Homeの場合「タイムライン」
-        // console.log(res.data);
+      // try {
+      const res = username
+        ? await axios.get(`api/posts/profile/${username}`) //プロフィールの場合のAPI
+        : await axios.get(
+            `api/posts/timeline/${user._id}`
+          ); //Homeの場合「タイムライン」
+      // console.log(res.data);
+      //sortで投稿を並び変える
+      // setPosts(res.data.sort((p1, p2) => {
+      //   return new Date(p2.createdAt) - new Date(p1.createdAt);
+      // } )
         setPosts(res.data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
+        
+
       }
-    };
-    fetchPosts();
+    // );
+  
+    // } catch (error) {
+    //   console.error("エラーメッセージ", error);
+    // }
+  // };
+
+      fetchPosts();
+    
   }, [username, user._id]);
+
   return (
     <>
       <div className="timeline">
@@ -37,3 +51,6 @@ export default function TimeLine({ username }) {
     </>
   );
 }
+// sort((post1, post2) => {
+//   return new Date(post2.createdAt) - new Date(post1.createdAt);
+// });

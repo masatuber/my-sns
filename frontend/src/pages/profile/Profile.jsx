@@ -15,8 +15,10 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      //クエリで参照するので、?username=${username}usernameはuseParamsより参照
-      const response = await axios.get(`/api/users?username=${username}`);
+      //クエリで参照するので、?username=${username}usernameはuseParamsより参照 PUBLIC_FOLDER +
+      const response = await axios.get(
+        `api/users?username=${username}`
+      );
       setUser(response.data);
       // console.log(response.data);
     };
@@ -31,7 +33,7 @@ export default function Profile() {
           <div className="profileRightTop">
             <div className="profileCover">
               <img
-                src={PUBLIC_FOLDER + user.coverPicture || PUBLIC_FOLDER + "/post/3.jpeg"}
+                src={ user.coverPicture || PUBLIC_FOLDER + "/post/3.jpeg"}
                 alt=""
                 className="profileCoverImg"
               />
