@@ -23,7 +23,7 @@ mongoose
 
 //ミドルウェアにエンドポイントルーティング設定記述する。express.json()はJSON形式を指定
 // /：3000/imagesを見に行ったら現在のディレクトリに＋public/imagesを参照する記述
-app.use("/images", express.static(path.join(__dirname, "public/images")));
+app.use("/images", express.static(path.join(__dirname, "public/images/")));
 //APIパスでVite環境は/api/を必ず付ける
 app.use(express.json());
 app.use("/api/users", userRoute);

@@ -11,32 +11,34 @@ export default function TimeLine({ username }) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-
-       try {
-         const res = username
-           ? await axios.get(`api/posts/profile/${username}`) //プロフィールの場合のAPI
-           : await axios.get(`api/posts/timeline/${user._id}`); //Homeの場合「タイムライン」
-         console.log(res.data);
-         //sortで投稿を並び変える
-         setPosts(
-           res.data.sort((p1, p2) => {
-             return new Date(p2.createdAt) - new Date(p1.createdAt);
-           })
-         );
-         // setPosts(res.data)
-       } catch (error) {
-        console.error("エラーメッセージ", error);
-      };
-    // );
-  
-    // } catch (error) {
-    //   console.error("エラーメッセージ", error);
+    console.log("AuthContextのuser:", user);
+    // if (!user || !user.id) {
+    //   console.error("ユーザーIDが取得できていません");
+    //   return; // APIリクエストを実行しない
     // }
-    };
+    const fetchPosts = async () => {
+      try {
+        //プロフィールの場合のAPI
+        const res = username
+          ? await axios.get(`api/posts/profile/${username}`)
+          : await axios.get(`api/posts/timeline/${user._id}`);
+        //Homeの場合「タイムライン」
+        console.log("APIレスポンス:", res.data); // デバッグ用
 
-      fetchPosts();
-    
+        // if (Array.isArray(res.data)) {
+          setPosts(
+            res.data.sort(
+              (p1, p2) => new Date(p2.createdAt) - new Date(p1.createdAt)
+            )
+          );
+        // } else {
+        //   console.error("取得したデータが配列ではありません:", res.data);
+        //}
+      } catch (error) {
+        console.error("エラーメッセージ", error);
+      }
+    };
+    fetchPosts();
   }, [username, user._id]);
 
   return (

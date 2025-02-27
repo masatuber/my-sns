@@ -2,24 +2,26 @@ import { useContext, useRef } from "react";
 import "./Login.css";
 import { loginCall } from "../../actionCalls";
 import { AuthContext } from "../../state/AuthContext";
+// import { LoginSuccess } from "../../state/AuthActions";
 
 export default function Login() {
-  const email = useRef();
-  const password = useRef();
-  //useContextでAuthContextの値を取得
-  const { user, isFetching, error, dispatch} = useContext(AuthContext);
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  //useContextでAuthContextの値を取得 user, isFetching, error,
+  const { dispatch, } = useContext(AuthContext);
   //formタグのonSubmitが使える
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log(email.current.value);
     // console.log(password.current.value);
     loginCall({
-        email: email.current.value,
-        password: password.current.value,
-      }, dispatch
-    );
+      
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    });
+    dispatch
   };
-  // console.log(user);
+   
 
   return (
     <>
@@ -37,7 +39,7 @@ export default function Login() {
                 className="loginInput"
                 placeholder="Eメール"
                 required
-                ref={email}
+                ref={emailRef}
               />
               <input
                 type="password"
@@ -45,7 +47,7 @@ export default function Login() {
                 placeholder="パスワード"
                 required
                 minLength={"5"}
-                ref={password}
+                ref={passwordRef}
               />
               <button className="loginButton">ログイン</button>
               <span className="loginForgot">

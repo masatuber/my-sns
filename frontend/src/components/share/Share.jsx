@@ -40,7 +40,7 @@ console.log(user._id);
 
     try {
       
-      await axios.post("api/posts", newPost);
+      await axios.post("api/posts/", newPost);
       window.location.reload();
     } catch(err) {
       console.log(err);
@@ -57,7 +57,7 @@ console.log(user._id);
               src={
                 user.profilePicture
                   ? PUBLIC_FOLDER + user.profilePicture
-                  : PUBLIC_FOLDER + "/person/noAvatar.png"
+                  : PUBLIC_FOLDER + "person/noAvatar.png"
               }
               alt=""
               className="shareProfileImg"
