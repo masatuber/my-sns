@@ -11,6 +11,7 @@ function App() {
   //useContextでグローバルにユーザー状態を把握する
   const { user } = useContext(AuthContext);
 
+
   return (
     <>
       <div>

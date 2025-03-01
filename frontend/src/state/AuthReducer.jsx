@@ -1,18 +1,18 @@
 export const AuthReducer = (state, action) => {
   switch (action.type) {
-    case "LOGIN_START":
+    case "LoginStart":
       return {
         user: null,
         isFetching: true,
         error: false,
       };
-    case "LOGIN_SUCCESS":
+    case "LoginSuccess":
       return {
         user: action.payload,
         isFetching: false,
         error: false,
       };
-    case "LOGIN_ERROR":
+    case "LoginError":
       return {
         user: null,
         isFetching: false,
@@ -22,4 +22,5 @@ export const AuthReducer = (state, action) => {
     default:
       return state;
   }
+  
 };

@@ -7,12 +7,6 @@ export default function Topbar() {
   const PUBLIC_FOLDER = import.meta.env.VITE_REACT_APP_PUBLIC_FOLDER;
   const { user } = useContext(AuthContext);
 
-  const handleSubmit = (e) => {
-      e.preventDefault();
-      localStorage.clear();      
-    };
-
-
   return (
     <>
       <div className="topbarContainer">
@@ -46,15 +40,12 @@ export default function Topbar() {
                 src={
                   user.profilePicture
                     ? user.profilePicture
-                    : PUBLIC_FOLDER + "/person/noAvatar.png"
+                    : PUBLIC_FOLDER + "person/noAvatar.png"
                 }
                 alt=""
                 className="topbarImg"
               ></img>
             </Link>
-            <button onClick={(e) => handleSubmit(e)}>
-              ローカルストレージ削除
-            </button>
           </div>
         </div>
       </div>

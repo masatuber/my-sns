@@ -40,7 +40,7 @@ console.log(user._id);
 
     try {
       
-      await axios.post("api/posts/", newPost);
+      await axios.post("api/posts", newPost);
       window.location.reload();
     } catch(err) {
       console.log(err);

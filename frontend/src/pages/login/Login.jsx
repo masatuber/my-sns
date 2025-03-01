@@ -8,20 +8,22 @@ export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   //useContextでAuthContextの値を取得 user, isFetching, error,
-  const { dispatch, } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
   //formタグのonSubmitが使える
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(email.current.value);
     // console.log(password.current.value);
-    loginCall({
-      
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-    });
-    dispatch
+    await loginCall(
+      {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      },
+      dispatch
+    );
+  
   };
-   
+  
 
   return (
     <>
