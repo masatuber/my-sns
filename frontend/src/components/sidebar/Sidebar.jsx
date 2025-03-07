@@ -8,6 +8,14 @@ import { AuthContext } from "../../state/AuthContext";
 
 export default function Sidebar() {
   const { user } = useContext(AuthContext);
+
+  //ローカルユーザー状態を削除
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    window.location.reload();
+  };
+
   return (
     <>
       <div className="sidebar">
@@ -15,10 +23,7 @@ export default function Sidebar() {
           <ul className="sidebarList">
             <li className="sidebarListItem">
               <Home className="sidebarIcon" />
-              <Link
-                to="/" 
-                style={{ textDecoration: "none", color: "black" }}
-              >
+              <Link to="/" style={{ textDecoration: "none", color: "black" }}>
                 <span className="sidebarListItemText">ホーム</span>
               </Link>
             </li>
@@ -58,6 +63,9 @@ export default function Sidebar() {
               <CloseFriend user={user} key={user.id} />
             ))}
           </ul>
+          <button onClick={(e) => handleSubmit(e)}>
+            ローカルユーザーの保存状態を削除する
+          </button>
         </div>
       </div>
     </>

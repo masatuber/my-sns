@@ -1,4 +1,3 @@
-import './App.css'
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import Profile from './pages/profile/Profile';
@@ -10,6 +9,7 @@ import { useContext } from 'react';
 function App() {
   //useContextでグローバルにユーザー状態を把握する
   const { user } = useContext(AuthContext);
+
 
   return (
     <>

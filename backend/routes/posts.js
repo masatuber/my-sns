@@ -3,8 +3,8 @@ const router = require("express").Router();
 const Post = require("../models/Post");
 //User.jsよりスキーマインポートする
 const User = require("../models/User");
-const cors = require('cors');
-router.use(cors());
+// const cors = require('cors');
+// router.use(cors());
 //投稿を作成する処理API
 router.post("/", async (req, res) => {
     const newPost = new Post(req.body);

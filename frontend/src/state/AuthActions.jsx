@@ -1,15 +1,16 @@
 //ユーザー入力に応じたアクションの定義設定
 export const LoginStart = (user) => ({
-  type: "LOGIN_START",
+  type: "LoginStart",
   payload: user,
 });
 
 export const LoginSuccess = (user) => ({
-  type: "LOGIN_SUCCESS",
+  type: "LoginSuccess",
   payload: user,
 });
 
 export const LoginError = (error) => ({
-  type: "LOGIN_ERROR",
+  type: "LoginError",
   payload: error,
 });
+//LOGIN_SUCCESS
