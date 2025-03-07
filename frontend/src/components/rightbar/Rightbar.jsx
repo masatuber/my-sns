@@ -6,17 +6,17 @@ import { useEffect, useState} from "react";
 
 export default function  Rightbar({ user }) {
   const PUBLIC_FOLDER = import.meta.env.VITE_REACT_APP_PUBLIC_FOLDER;
-  //ニュースデータの保持用のステート
+  
+  //ニュースAPIキー定義 https://newsapi.org/v2/everything?q=テクノロジー&apiKey=
+  const API_KEY = import.meta.env.VITE_REACT_NEWS_API_KEY;
+  //ニュースデータの保持用のステート定義
   const [newsData, setNewsData] = useState([]);
-  //https://newsapi.org/v2/everything?q=テクノロジー&apiKey=294869a8c9ff49d3845198fc1da1e10d
 
   // useEffect(() => {
   //   fetchNews();
   // }, []);
   const hendleGet = () => {
     const fetchNews = async () => {
-      const API_KEY = "294869a8c9ff49d3845198fc1da1e10d";
-      
       try {
         const response = await axios.get(`https://newsapi.org/v2/everything`, {
           params: {
@@ -29,16 +29,16 @@ export default function  Rightbar({ user }) {
         });
         console.log(response.data);
 
-         if (response.status === 200) {
-        const articles = response.data.articles ?? [];
-        setNewsData(articles);
-         }
+        if (response.status === 200) {
+          const articles = response.data.articles ?? [];
+          setNewsData(articles);
+        }
       } catch (error) {
         console.error("エラーが発生しました", error);
       }
     };
     fetchNews();
-  }
+  };
 
   const HomeRightbar = () => {
     return (
