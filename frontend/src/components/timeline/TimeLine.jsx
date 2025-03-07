@@ -13,7 +13,11 @@ export default function TimeLine({ username,  }) {
   useEffect(() => {
    
       if (!user) {
+<<<<<<< HEAD
        window.alert("ユーザーIDが取得できていません");
+=======
+       console.error("ユーザーIDが取得できていません");
+>>>>>>> 72fea4be841c6261bc6b576c1b9472128bbc15e0
        return; // APIリクエストを実行しない
      }
     console.log("AuthContextのuser:", user);

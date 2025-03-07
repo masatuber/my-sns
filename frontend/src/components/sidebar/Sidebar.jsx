@@ -9,12 +9,20 @@ import { AuthContext } from "../../state/AuthContext";
 export default function Sidebar() {
   const { user } = useContext(AuthContext);
 
+<<<<<<< HEAD
   //ローカルユーザー状態を削除
   const handleSubmit = (e) => {
     e.preventDefault();
     localStorage.clear();
     window.location.reload();
   };
+=======
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      localStorage.clear();
+      window.location.reload();
+    };
+>>>>>>> 72fea4be841c6261bc6b576c1b9472128bbc15e0
 
   return (
     <>

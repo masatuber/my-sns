@@ -33,6 +33,18 @@ export default function Share() {
       } catch (err) {
         console.log(err);
       }
+<<<<<<< HEAD
+=======
+
+    } 
+
+    try {
+      
+      await axios.post("api/posts", newPost);
+      window.location.reload();
+    } catch(err) {
+      console.log(err);
+>>>>>>> 72fea4be841c6261bc6b576c1b9472128bbc15e0
     }
 
     try {
