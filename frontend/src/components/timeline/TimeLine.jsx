@@ -14,6 +14,7 @@ export default function TimeLine({ username,  }) {
    
       if (!user) {
        window.alert("ユーザーIDが取得できていません");
+       console.error("ユーザーIDが取得できていません");
        return; // APIリクエストを実行しない
      }
     console.log("AuthContextのuser:", user);
