@@ -2,7 +2,7 @@ import "./Rightbar.css";
 import { Users } from "../../dummyData";
 import Online from "../online/Online";
 import axios from "axios";
-import { useEffect, useState} from "react";
+import { useState } from "react";
 
 export default function  Rightbar({ user }) {
   const PUBLIC_FOLDER = import.meta.env.VITE_REACT_APP_PUBLIC_FOLDER;
@@ -44,38 +44,15 @@ export default function  Rightbar({ user }) {
     return (
       <>
         <div className="eventContainer">
-          <button onClick={hendleGet}> ニュースデータ取得</button>
-          <img src={PUBLIC_FOLDER + "/star.png"} alt="" className="starImg" />
-          <span className="eventText">
-            <b>フォローワー限定</b>イベント開催中!
-          </span>
+          <button onClick={hendleGet}> ニュースデータ取得</button>      
         </div>
-        <img src={PUBLIC_FOLDER + "/event.jpeg"} alt="" className="eventImg" />
+        
         <h4 className="rightbarTitle">オンラインの友達</h4>
         <ul className="rightbarFriendList">
           {Users.map((user) => (
             <Online user={user} key={user.id} /> //Onlineコンポーネントにuserを渡し、JSのmap関数でUsersの配列を展開
           ))}
         </ul>
-        <p className="promotionTitle">プロモーション広告</p>
-        <img
-          src={PUBLIC_FOLDER + "/promotion/promotion1.jpeg"}
-          alt=""
-          className="rightbarPromotionImg"
-        />
-        <p className="promotionName">ショッピング</p>
-        <img
-          src={PUBLIC_FOLDER + "/promotion/promotion2.jpeg"}
-          alt=""
-          className="rightbarPromotionImg"
-        />
-        <p className="promotionName">カーショップ</p>
-        <img
-          src={PUBLIC_FOLDER + "/promotion/promotion3.jpeg"}
-          alt=""
-          className="rightbarPromotionImg"
-        />
-        <p className="promotionName">・株式会社</p>
 
         {/* ニュースデータが存在する場合にレンダリング */}
         {newsData.length > 0 && (

@@ -160,5 +160,36 @@ router.put("/:id/unfollow", async (req, res) => {
     }
 });
 
+// 新規追加: DBに保存してあるユーザーを検索するAPIエンドポイント
+// クエリパラメータ "q" を利用して、usernameの部分一致検索を行います
+router.get("/search", async (req, res) => {
+    // クエリパラメータから検索キーワードを取得
+    const query = req.query.q;
+
+    // 検索キーワードが未入力の場合は400エラーを返す
+    if (!query) {
+        return res.status(400).json("検索キーワードを入力してください");
+    }
+
+    try {
+        // ユーザー名に対して大文字・小文字を区別しない正規表現検索を実施
+        const users = await User.find({
+            username: { $regex: query, $options: "i" }
+        });
+
+        // 検索結果からパスワードや更新日時など不要な情報を除外する
+        const filteredUsers = users.map(user => {
+            const { password, updatedAt, ...other } = user._doc;
+            return other;
+        });
+
+        // 結果をステータス200で返す
+        return res.status(200).json(filteredUsers);
+    } catch (err) {
+        // エラー発生時は500エラーを返す
+        return res.status(500).json(err);
+    }
+});
+
 module.exports = router;
 //モジュールエクスポートはrouter

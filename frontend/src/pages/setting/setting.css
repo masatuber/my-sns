@@ -1,0 +1,18 @@
+.setting {
+  display: flex;
+}
+
+.accountDelete {
+  flex: 2.5;
+  text-align: center;
+}
+
+.settingText {
+  font-size: 25px;
+}
+
+.accountDeleteButton {
+  width: 85%;
+  height: 50px;
+  cursor: pointer;
+}

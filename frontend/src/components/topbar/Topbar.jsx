@@ -38,9 +38,7 @@ export default function Topbar() {
             <Link to={`/profile/${user.username}`}>
               <img
                 src={
-                  user.profilePicture
-                    ? PUBLIC_FOLDER + user.profilePicture
-                    : PUBLIC_FOLDER + "/person/noAvatar.png"
+                    user.profilePicture
                     ? user.profilePicture
                     : PUBLIC_FOLDER + "person/noAvatar.png"
                 }

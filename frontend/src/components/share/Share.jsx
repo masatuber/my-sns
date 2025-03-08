@@ -37,20 +37,13 @@ export default function Share() {
     } 
 
     try {
-      
-      await axios.post("api/posts", newPost);
+      //競合で3回呼ばれていた
       await axios.post("api/posts", newPost);
       window.location.reload();
     } catch(err) {
       console.log(err);
     }
 
-    try {
-      await axios.post("api/posts", newPost);
-      window.location.reload();
-    } catch (err) {
-      console.log(err);
-    }
   }
 
 
@@ -112,4 +105,3 @@ export default function Share() {
   );
 }
 
-// 294869a8c9ff49d3845198fc1da1e10d
