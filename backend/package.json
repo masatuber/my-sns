@@ -4,7 +4,7 @@
   "description": "real-sns",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon node --max-old-space-size=512 server.js"
   },
   "author": "",
   "license": "ISC",

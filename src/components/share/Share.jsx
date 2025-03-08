@@ -10,7 +10,7 @@ export default function Share() {
   const desc = useRef();
 
   const [file, setFile] = useState(null);
-  console.log(file);
+  //console.log(file);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +19,8 @@ export default function Share() {
       userid: user._id,
       desc: desc.current.value,
     };
-console.log(user._id);
+  //console.log(user._id);
+  
     if(file) {
       const data = new FormData(); //キーとvalueを作成
       const fileName = Date.now() + file.name; //現在時刻を使って重複を回避

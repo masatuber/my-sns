@@ -16,7 +16,8 @@ export default function TimeLine({ username,  }) {
        console.error("ユーザーIDが取得できていません");
        return; // APIリクエストを実行しない
      }
-    console.log("AuthContextのuser:", user);
+    //console.log("AuthContextのuser:", user);
+
     const fetchPosts = async () => {
       try {
         //プロフィールの場合のAPI
@@ -44,6 +45,7 @@ export default function TimeLine({ username,  }) {
     fetchPosts();
   }, [username, user]);
 //依存配列に全体のグローバルuserを監視するように変更
+
   return (
     <>
       <div className="timeline">
