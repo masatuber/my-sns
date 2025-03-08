@@ -1,8 +1,8 @@
 import "./Post.css";
 import { useContext, useEffect, useState } from "react";
-import { MoreVert } from "@mui/icons-material";
+//import { MoreVert } from "@mui/icons-material"; …リーダーの複数機能現段階では活用なし
 import axios from "axios";
-import {format} from "timeago.js";
+import { format } from "timeago.js";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../state/AuthContext";
 // import { Users } from "../../dummyData";
@@ -19,9 +19,7 @@ export default function Post({ post }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get(
-        `api/users?userid=${post.userid}`
-      );
+      const response = await axios.get(`api/users?userid=${post.userid}`);
       setUser(response.data);
       // console.log(response.data);
     };
@@ -44,6 +42,22 @@ export default function Post({ post }) {
   };
   //filter((user) => user.id === post.id)[0].
   //s.filter((user) => user.id === post.id)[0].
+  const handleDelete = async () => {
+    //削除確認用のダイアログ
+    if (!window.confirm("本当にこの投稿を削除してもよろしいですか？")) return;
+
+    try {
+      //削除のAPIを呼出す
+      await axios.delete(`api/posts/${post._id}`, {
+        data: { userid: loginUser._id },
+      });
+      window.alert("投稿を削除しました");
+      window.location.reload();
+    } catch (err) {
+      window.alert("投稿削除に失敗しました:", err);
+    }
+  };
+
   return (
     <>
       <div className="post">
@@ -53,9 +67,10 @@ export default function Post({ post }) {
               <Link to={`/profile/${user.username}`}>
                 <img
                   src={
-                    user.profilePicture 
-                    ? PUBLIC_FOLDER + user.profilePicture 
-                    : PUBLIC_FOLDER + "person/noAvatar.png"
+                    user.profilePicture
+                      ? PUBLIC_FOLDER + user.profilePicture
+                      : PUBLIC_FOLDER + "person/noAvatar.png"
+                    //競合でおかしい
                   }
                   alt=""
                   className="postProfileImg"
@@ -65,7 +80,11 @@ export default function Post({ post }) {
               <span className="postDate">{format(post.createdAt)}</span>
             </div>
             <div className="postTopRight">
-              <MoreVert />
+              {/* <MoreVert /> */}
+              {/* ログインユーザーとpostのユーザーIDが等しい時に削除button表示 */}
+              {loginUser._id === post.userid && (
+                <button onClick={handleDelete}>投稿を削除する</button>
+              )}
             </div>
           </div>
           <div className="postCenter">
