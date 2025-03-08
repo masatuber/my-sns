@@ -1,7 +1,7 @@
 .timeline {
-    flex: 4;
+    flex: 6;
 }
 
 .timelineWrapper {
-    padding: 5px;
+    padding: 20px;
 }

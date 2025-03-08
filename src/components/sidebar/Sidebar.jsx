@@ -53,21 +53,18 @@ export default function Sidebar() {
             </li>
             <li className="sidebarListItem">
               <Settings className="sidebarIcon" />
-              <Link to="/setting" style={{ textDecoration: "none", color: "black" }}>
-                
-                <span className="sidebarListItemText">設定</span>
-              </Link>
+              <span className="sidebarListItemText">設定</span>
             </li>
             <hr className="sidebarHr" />
           </ul>
-          <button onClick={(e) => handleSubmit(e)}>
-            キャッシュを削除して新規登録に戻る
-          </button>
           <ul className="sidebarFriendList">
             {Users.map((user) => (
               <CloseFriend user={user} key={user.id} />
             ))}
           </ul>
+          <button onClick={(e) => handleSubmit(e)}>
+            ローカルユーザーの保存状態を削除する
+          </button>
         </div>
       </div>
     </>

@@ -1,9 +1,9 @@
 .rightbar {
-    flex: 3;
+    flex: 3.5;
 }
 
 .rightbarWrapper {
-    padding: 10px 10px 0 0;
+    padding: 20px 20px 0 0;
 
 }
 
@@ -12,9 +12,26 @@
     align-items: center;
 }
 
+.starImg {
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+}
 
+.eventText {
+    font-weight: 300;
+    font-size: 15px;
+}
 
+.eventImg {
+    width: 100%;
+    border-radius: 10px;
+    margin: 25px 0;
+}
 
+.rightbarTitle {
+    margin-bottom: 20px;
+}
 
 .rightbarFriend {
     padding: 0;
@@ -55,7 +72,17 @@
     border: 2px solid white;
 }
 
+.promotionTitle {
+    font-size: 18px;
+    font-weight: 550;
+    margin-bottom: -10px;
+}
 
+.rightbarPromotionImg {
+    width: 85%;
+    border-radius: 10px;
+    margin: 25px 0;
+}
 
 .promotionName {
     font-size: small;

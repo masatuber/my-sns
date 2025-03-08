@@ -10,17 +10,17 @@ export default function Share() {
   const desc = useRef();
 
   const [file, setFile] = useState(null);
-  //console.log(file);
+  console.log(file);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    ///postsのAPIに含めるデータ
+
     const newPost = {
       userid: user._id,
       desc: desc.current.value,
     };
-    console.log(user._id);
-    if (file) {
+console.log(user._id);
+    if(file) {
       const data = new FormData(); //キーとvalueを作成
       const fileName = Date.now() + file.name; //現在時刻を使って重複を回避
       data.append("name", fileName);
@@ -31,13 +31,15 @@ export default function Share() {
         //画像アップロード用のAPI呼ぶ
         await axios.post("api/upload", data);
       } catch (err) {
+
         console.log(err);
+
       }
 
     } 
 
     try {
-      //競合で3回呼ばれていた
+      
       await axios.post("api/posts", newPost);
       window.location.reload();
     } catch(err) {
@@ -45,7 +47,6 @@ export default function Share() {
     }
 
   }
-
 
   return (
     <>
@@ -104,4 +105,3 @@ export default function Share() {
     </>
   );
 }
-

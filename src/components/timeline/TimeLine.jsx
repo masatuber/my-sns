@@ -13,7 +13,6 @@ export default function TimeLine({ username,  }) {
   useEffect(() => {
    
       if (!user) {
-       window.alert("ユーザーIDが取得できていません");
        console.error("ユーザーIDが取得できていません");
        return; // APIリクエストを実行しない
      }
@@ -39,7 +38,7 @@ export default function TimeLine({ username,  }) {
             console.error("取得したデータが配列ではありません:", res.data);
           }
       } catch (error) {
-        window.alert("エラーメッセージ", error);
+        console.error("エラーメッセージ", error);
       }
     };
     fetchPosts();

@@ -12,7 +12,7 @@ export default function Topbar() {
       <div className="topbarContainer">
         <div className="topbarLeft">
           <Link to="/" style={{ textDecoration: "none" }}>
-            <span className="logo">ニュースながらSNS</span>
+            <span className="logo">単機能なSNS</span>
           </Link>
         </div>
         <div className="topbarCenter">
@@ -38,7 +38,7 @@ export default function Topbar() {
             <Link to={`/profile/${user.username}`}>
               <img
                 src={
-                    user.profilePicture
+                  user.profilePicture
                     ? user.profilePicture
                     : PUBLIC_FOLDER + "person/noAvatar.png"
                 }

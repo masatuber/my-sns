@@ -42,10 +42,12 @@ export default function Register() {
       <div className="login">
         <div className="loginWrapper">
           <div className="loginLeft">
-            <h3 className="loginLogo">ニュースながらSNS</h3>
-            <span className="loginDesc">新感覚のSNS</span>
+            <h3 className="loginLogo">Real SNS</h3>
+            <span className="loginDesc">新しいSNS</span>
             <Link to="/login">
-              <button>アカウントがある場合はこちら</button>
+              <button>
+                アカウントがある場合はこちら
+              </button>
             </Link>
           </div>
           <div className="loginRight">
