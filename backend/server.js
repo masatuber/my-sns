@@ -17,9 +17,15 @@ mongoose
     .then( ( ) =>{
         console.log("DBに接続中・・・");
     } )
-    .catch( ( err ) => {
-        console.log(err);
+    .catch( ( err ) => {        
+  console.error("DB接続エラー:", err);
+  process.exit(1); // エラー時にプロセス終了
     } );
+
+setInterval(() => {
+  const used = process.memoryUsage();
+  console.log(`Heap Used: ${Math.round(used.heapUsed / 1024 / 1024)} MB`);
+}, 5000);
 
 //ミドルウェアにエンドポイントルーティング設定記述する。express.json()はJSON形式を指定
 // /：3000/imagesを見に行ったら現在のディレクトリに＋public/imagesを参照する記述
