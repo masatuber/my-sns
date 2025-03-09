@@ -39,3 +39,4 @@ app.use("/api/posts", postRoute);
 app.use("/api/upload", uploadRoute);
 
 app.listen( PORT, () => console.log("サーバーが起動しました。"));
+//サーバーの処理

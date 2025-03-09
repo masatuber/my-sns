@@ -30,7 +30,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     if(req.body.userid === req.params.id || req.body.isAdmin) {
         try {
-            const user = await User.findByIdAndDelete(req.params.id);
+            const user = await User.findByIdAndDelete(req.params.id).select("userid isAdmin");
             //ステータス200を返す
             res.status(200).json("ユーザー情報が削除されました");
 
@@ -72,8 +72,9 @@ router.get("/", async (req, res) => {
     //?username=hegeを参照出来るようにする
     const username = req.query.username;
         try {
-            const user = userId 
-                ? await User.findById(userId) 
+            const user = userId
+            //.select()不要なフィールドを除外,.lean()生のJSオブジェクトとして取得
+                ? await User.findById(userId)
                 : await User.findOne({username: username});
             //分割代入でDBからユーザー情報取得するためにPW、updatedAtを除いた情報取得する
             const { password, updatedAt, ...other } = user._doc;
@@ -89,74 +90,58 @@ router.get("/", async (req, res) => {
 
 
 //ユーザーのフォローuseridと等しくない時がフォロー出来る条件分岐、followersはデータスキーマより参照する(配列で定義したのでinclude（）が使用可能)
+// ・事前にドキュメントを取得せず、updateOneの条件に $ne を使用して、すでにフォローしているかをクエリ側で判断
 router.put("/:id/follow", async (req, res) => {
-    //ifにtryにif
-    if(req.body.userid !== req.params.id) {
+    if (req.body.userid !== req.params.id) {
         try {
-            //これからフォローするユーザーの変数定義
-            const user = await User.findById(req.params.id);
-            const currentUser = await User.findById(req.body.userid);
-            //フォロワーに自分自身がいなかった時はフォローが出来る条件分岐
-            if(!user.followers.includes(req.body.userid)) {
-                await user.updateOne({
-                    $push: {
-                        followers: req.body.userid,
-                    },
-                });
-                await currentUser.updateOne({
-                    $push: {
-                        followings: req.params.id,
-                    },
-                });
+            // 対象ユーザーの followers 配列に、すでに自分のIDが含まれていなければ更新
+            const followResult = await User.updateOne(
+                { _id: req.params.id, followers: { $ne: req.body.userid } },
+                { $push: { followers: req.body.userid } }
+            );
+            if (followResult.modifiedCount > 0) {
+                // 自分の followings 配列にも対象ユーザーのIDを追加
+                await User.updateOne(
+                    { _id: req.body.userid },
+                    { $push: { followings: req.params.id } }
+                );
                 return res.status(200).json("フォローしました!");
             } else {
-                return res
-                .status(403)
-                .json("あなたはすでにこのユーザーをフォローしています");
+                return res.status(403).json("あなたはすでにこのユーザーをフォローしています");
             }
         } catch (err) {
             return res.status(500).json(err);
         }
     } else {
-        return res
-        .status(500)
-        .json("自分自身をフォロー出来ません");
+        return res.status(500).json("自分自身をフォロー出来ません");
     }
 });
 
+
 //ユーザーのfollowを解除する処理
+// ・updateOne の条件に $in を利用して、対象ユーザーの followers 配列に自分のIDが存在する場合のみ更新
 router.put("/:id/unfollow", async (req, res) => {
-    //ifにtryにif、フォロワーに存在したらfollowを外すことが出来る
-    if(req.body.userid !== req.params.id) {
+    if (req.body.userid !== req.params.id) {
         try {
-            //これからフォローするユーザーの変数定義
-            const user = await User.findById(req.params.id);
-            const currentUser = await User.findById(req.body.userid);
-            //フォロワーに自分自身がいなかった時はフォローが出来る条件分岐
-            if(user.followers.includes(req.body.userid)) {
-                await user.updateOne({
-                    $pull: {
-                        followers: req.body.userid,
-                    },
-                });
-                await currentUser.updateOne({
-                    $pull: {
-                        followings: req.params.id,
-                    },
-                });
+            const unfollowResult = await User.updateOne(
+                { _id: req.params.id, followers: { $in: [req.body.userid] } },
+                { $pull: { followers: req.body.userid } }
+            );
+            if (unfollowResult.modifiedCount > 0) {
+                // 自分の followings 配列から対象ユーザーのIDを削除
+                await User.updateOne(
+                    { _id: req.body.userid },
+                    { $pull: { followings: req.params.id } }
+                );
                 return res.status(200).json("フォローを解除しました!");
             } else {
-                return res
-                .status(403)
-                .json("このユーザーはフォロー解除出来ません");
+                return res.status(403).json("このユーザーはフォロー解除出来ません");
             }
         } catch (err) {
             return res.status(500).json(err);
         }
     } else {
-        return res
-        .status(500)
-        .json("自分自身をフォロー解除出来ません");
+        return res.status(500).json("自分自身をフォロー解除出来ません");
     }
 });
 
