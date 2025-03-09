@@ -23,12 +23,17 @@ export default [
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
-    rules: {
+
+    rules: {         
+      "env": {
+        "node": true
+      },
       ...js.configs.recommended.rules,
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
       ...reactRefresh.configs.recommended.rules,
+      "no-undef": "off",
       'react/jsx-uses-react': 'off',
       'react/react-in-jsx-scope': 'off',
       "react/prop-types": "off",

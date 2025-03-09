@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const router = require("express").Router( );
 const User = require("../models/User");
 //ユーザー登録レジスター

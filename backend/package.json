@@ -2,6 +2,7 @@
   "name": "real-sns",
   "version": "1.0.0",
   "description": "real-sns",
+
   "main": "server.js",
   "scripts": {
     "start": "nodemon node --max-old-space-size=512 server.js"
